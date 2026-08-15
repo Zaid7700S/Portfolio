@@ -28,7 +28,7 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-const siteUrl = "https://your-domain.com"; // TODO: replace with real deployed URL
+const siteUrl = "https://zaidarshad.me";
 const siteTitle = "Zaid Arshad — Software Engineer & AI Developer";
 const siteDescription =
   "Software Engineering student at Superior University building Agentic AI systems, RAG pipelines, and full-stack applications.";
