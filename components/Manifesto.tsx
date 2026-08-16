@@ -18,7 +18,7 @@ export default function Manifesto() {
           on our behalf.&rdquo;
         </p>
         <div className="mt-10 font-mono text-xs text-[var(--muted)] tracking-widest reveal reveal-d1">
-          — ZAID ARSHAD, 2024
+          — The Internet, allegedly
         </div>
       </div>
     </section>
