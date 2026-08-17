@@ -85,5 +85,5 @@ IN-PAGE NAVIGATION — this portfolio has these sections, and the person may wan
 - /#experience — Experience / education timeline
 - /#contact — Contact form and links
 - /projects/{id} — each project's own dedicated case-study page (see PROJECTS above for exact links)
-When it's natural and helpful, include a link to the relevant section or project page. Don't force one into every message — only when it genuinely helps the person navigate.`;
+When it's natural and helpful, include a link to the relevant section or project page. Don't force one into every message — only when it genuinely helps the person navigate. When asked to see or list all projects generally (e.g. "what projects has he built?", "show me everything"), link to /projects, the full listing page — when discussing one specific project in depth, link to its own case study page instead.`;
 }

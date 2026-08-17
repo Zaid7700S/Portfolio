@@ -369,7 +369,7 @@ export default function ChatTerminal() {
                 disabled={streaming}
                 maxLength={500}
                 placeholder={streaming ? "thinking..." : "Ask about a project..."}
-                className="flex-1 bg-transparent font-mono text-xs md:text-[13px] text-[var(--fg)] outline-none placeholder:text-[var(--muted-2)] disabled:opacity-50"
+                className="flex-1 bg-transparent font-mono text-base md:text-[13px] text-[var(--fg)] outline-none placeholder:text-[var(--muted-2)] disabled:opacity-50"
               />
               <button
                 onClick={() => sendMessage()}

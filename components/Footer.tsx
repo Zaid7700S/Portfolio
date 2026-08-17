@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const pathname = usePathname();
-  const isProjectsPage = pathname === "/projects";
+  const isSubPage = pathname !== "/";
 
-  if (isProjectsPage) {
+  if (isSubPage) {
     return (
       <footer className="relative border-t border-[var(--border)] px-6 md:px-12 py-8 z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-[var(--muted)]">
