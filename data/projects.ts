@@ -6,6 +6,7 @@ export type ProjectId =
   | "quiz-app";
 
 export interface Project {
+  // --- Existing fields (used by cards + modal, already filled in) ---
   title: string;
   subtitle: string;
   img: string;
@@ -14,6 +15,16 @@ export interface Project {
   features: string[];
   github: string;
   demo: string;
+
+  // --- New fields for the full case-study page (/projects/[slug]) ---
+  // All optional — the page renders gracefully with just the fields above
+  // until you fill these in. See PROJECT_WRITING_GUIDE.md for what to write.
+  year?: string;
+  problem?: string;
+  approach?: string[];
+  challenges?: string;
+  outcome?: string;
+  gallery?: string[];
 }
 
 export const projectData: Record<ProjectId, Project> = {
@@ -31,6 +42,12 @@ export const projectData: Record<ProjectId, Project> = {
     ],
     github: "https://github.com/Zaid7700S/Venture-AI-Backend",
     demo: "https://venture-ai-frontend.vercel.app/",
+    // year: "2026",
+    // problem: "",
+    // approach: [],
+    // challenges: "",
+    // outcome: "",
+    // gallery: [],
   },
   "rag-analyzer": {
     title: "RAG Document Analyzer",
@@ -62,11 +79,11 @@ export const projectData: Record<ProjectId, Project> = {
     github: "https://github.com/Zaid7700S/store-backend",
     demo: "https://store-frontend-xi-taupe.vercel.app",
   },
-    "lecture-agent": {
+  "lecture-agent": {
     title: "Lecture Assistant Agent",
     subtitle: "AI / LangGraph Workflow",
     img: "/lecture_assistant.png",
-    desc: "A LangGraph-powered agentic workflow that researches a topic, extracts cited claims, and generates dynamic PowerPoint slide decks. Features a two-stage Human-in-the-Loop (HITL) review system allowing users to refine plans and verify facts before generating a fully formatted presentation using Groq's high-speed LLMs.",
+    desc: "A LangGraph-powered agentic workflow that researches a topic, extracts cited claims, and generates dynamic PowerPoint slide decks. Features a two-stage Human-in-the-Loop (HITL) review system allowing users to refine plans and verify facts before generating a fully formatted, downloadable presentation using Groq's high-speed LLMs.",
     tags: ["LangGraph", "Groq", "Python", "React", "PPTX"],
     features: [
       "Dynamically scales slide count (1 slide per minute) based on user-defined lecture duration.",

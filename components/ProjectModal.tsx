@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ProjectId, projectData } from "@/data/projects";
 
 interface ProjectModalProps {
@@ -88,6 +89,16 @@ export default function ProjectModal({ projectId, onClose }: ProjectModalProps) 
                   ))}
                 </ul>
               </div>
+              {projectId && (
+                <Link
+                  href={`/projects/${projectId}`}
+                  onClick={onClose}
+                  className="inline-flex items-center gap-2 text-sm text-[var(--accent)] ul-link mb-8"
+                >
+                  Read the full case study
+                  <i className="fas fa-arrow-right text-xs" />
+                </Link>
+              )}
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <a
                   href={data.github}

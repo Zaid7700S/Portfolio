@@ -1,8 +1,18 @@
 import type { MetadataRoute } from "next";
-// TODO: keep this in sync with the siteUrl in app/layout.tsx
+import { projectData } from "@/data/projects";
+
 const siteUrl = "https://zaidarshad.me";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
+
+  const projectPages = Object.keys(projectData).map((slug) => ({
+    url: `${siteUrl}/projects/${slug}`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   return [
     {
       url: siteUrl,
@@ -16,5 +26,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    ...projectPages,
   ];
 }

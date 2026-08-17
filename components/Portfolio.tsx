@@ -17,6 +17,7 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import ProjectModal from "./ProjectModal";
 import GlobalEffects from "./GlobalEffects";
+import ChatTerminal from "./ChatTerminal";
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<ProjectId | null>(
@@ -49,6 +50,7 @@ export default function Portfolio() {
 
       <Footer />
       <GlobalEffects />
+      <ChatTerminal />
     </>
   );
 }

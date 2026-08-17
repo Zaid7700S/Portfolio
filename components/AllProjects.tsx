@@ -11,6 +11,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ProjectModal from "./ProjectModal";
 import GlobalEffects from "./GlobalEffects";
+import ChatTerminal from "./ChatTerminal";
 
 export default function AllProjects() {
   const [selectedProject, setSelectedProject] = useState<ProjectId | null>(
@@ -126,6 +127,7 @@ export default function AllProjects() {
 
       <Footer />
       <GlobalEffects />
+      <ChatTerminal />
     </>
   );
 }
