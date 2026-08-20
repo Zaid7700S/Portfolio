@@ -41,7 +41,7 @@ export const profile = {
   contact: {
     email: "zaid3055540@gmail.com",
     github: "https://github.com/Zaid7700S",
-    linkedin: "https://www.linkedin.com/in/zaid-arshad-8337423bb/",
+    linkedin: "https://www.linkedin.com/in/zaid-arshad-dev/",
     portfolio: "https://zaidarshad.me",
   },
   status:
