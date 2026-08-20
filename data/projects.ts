@@ -113,7 +113,7 @@ export const projectData: Record<ProjectId, Project> = {
   "boardroom-ai": {
   title: "Boardroom AI",
   subtitle: "Multi-Agent Executive Debate System",
-  img: "/Boardroom_AI.png", // TODO: swap in your actual screenshot filename
+  img: "/Boardroom_Ai.png", // TODO: swap in your actual screenshot filename
   desc: "An autonomous strategic planning app where four AI executives — CEO, CFO, CTO, and CMO — debate a business problem in real time, then converge on a structured action plan with a generated timeline chart. Built with AutoGen for the multi-agent debate and LangGraph for plan synthesis, running on Groq for low-latency inference.",
   tags: ["React", "FastAPI", "AutoGen", "LangGraph", "Groq", "Supabase"],
   features: [
