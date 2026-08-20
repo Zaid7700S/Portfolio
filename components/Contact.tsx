@@ -12,7 +12,7 @@ const socials = [
     icon: "fab fa-linkedin",
     label: "LinkedIn",
     handle: "Zaid Arshad",
-    href: "https://www.linkedin.com/in/zaid-arshad-8337423bb/",
+    href: "https://www.linkedin.com/in/zaid-arshad-dev/",
   },
   {
     icon: "fas fa-file-arrow-down",

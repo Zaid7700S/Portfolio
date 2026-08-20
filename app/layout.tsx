@@ -111,7 +111,7 @@ const personJsonLd = {
   ],
   sameAs: [
     "https://github.com/Zaid7700S",
-    "https://www.linkedin.com/in/zaid-arshad-8337423bb/",
+    "https://www.linkedin.com/in/zaid-arshad-dev/",
   ],
 };
 
