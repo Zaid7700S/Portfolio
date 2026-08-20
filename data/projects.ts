@@ -73,21 +73,56 @@ export const projectData: Record<ProjectId, Project> = {
     ],
     github: "https://github.com/Zaid7700S/RAG-APP",
     demo: "https://rag-system-flax.vercel.app/",
+    
+    // --- New fields for the full case-study page ---
+    year: "2026",
+    problem:
+      "Standard RAG tutorials work fine for simple text snippets but fall apart in real-world scenarios. I needed a system that could handle large, complex PDFs without crashing the server, losing markdown table structures, or hitting strict API rate limits during the embedding and retrieval process.",
+    approach: [
+      "Built a dual-engine FastAPI ingestion pipeline: a 'Fast Mode' for standard text extraction and a 'Deep Scan' layout-aware mode using PyMuPDF4LLM to perfectly preserve tables and hierarchical formatting.",
+      "Implemented a global chunk buffer that batches vector chunks in memory, reducing network calls to Hugging Face and Supabase from 30+ per document to just a few, completely bypassing strict free-tier API rate limits.",
+      "Used Supabase and pgvector for hybrid search, ensuring only high-confidence context reaches Groq's high-speed gpt-oss models.",
+      "Added a segmented control UI in React to allow dynamic search scoping, letting users seamlessly switch between querying a single active session or their entire global knowledge base.",
+      "Integrated a lightweight health-check endpoint to keep the free-tier Render backend awake via external pings, eliminating 60-second cold start delays for end users."
+    ],
+    challenges:
+      "Network bottlenecks and vector database query limits were the biggest hurdles. Initially, the backend made a network request for every single PDF page, causing massive slowdowns and rate-limit errors; I solved this by engineering a 20-chunk global memory buffer to batch uploads invisibly. Later, files stopped appearing in the knowledge base UI because the Supabase fetch query was hitting a hidden 1,000-row limit on vector chunks. I had to restructure the database schema to include a dedicated summaries table and rewrite the endpoint with a 15,000-row limit and exact JSONB metadata filtering to ensure reliable document retrieval.",
+    outcome:
+      "A highly optimized, production-ready RAG workspace that handles complex document layouts without memory spikes. The React UI features real-time token streaming, explicit markdown formatting for bold text and tables, and mandatory API key modal flows, resulting in a smooth, professional user experience that stays robust within free-tier infrastructure constraints.",
+    gallery: ["/Rag.png","/Rag_1.png", "/Rag_2.png", "/Rag_3.png"], 
   },
   "ecom-store": {
     title: "Full-Stack E-Commerce",
     subtitle: "Web Application",
     img: "/Shop_co.png",
-    desc: "A complete e-commerce platform featuring user authentication, cart management, Stripe payment integration, and an admin dashboard. Built with a modern React frontend and Node.js backend.",
-    tags: ["React", "Node.js", "SQL", "Stripe"],
+    desc: "A complete e-commerce platform featuring user authentication, cart management, and a live admin support dashboard. Built with a highly polished React frontend and a robust ASP.NET Core Web API backend.",
+    tags: ["React", "Tailwind CSS", "C#", ".NET Core", "SignalR", "Cloudflare R2", "SQL"],
     features: [
-      "JWT-based secure user authentication.",
-      "Shopping cart and checkout flow with Stripe API.",
-      "Admin dashboard for inventory and order management.",
-      "RESTful API backend with relational database design.",
+      "Responsive React UI with role-based routing and custom SVG components.",
+      "JWT-based secure user authentication with refresh token rotation.",
+      "Live dual-interface support desk powered by SignalR WebSockets.",
+      "Scalable cloud media storage via Cloudflare R2 integration.",
+      "Admin dashboard for inventory and customer management."
     ],
     github: "https://github.com/Zaid7700S/store-backend",
     demo: "https://store-frontend-xi-taupe.vercel.app",
+    
+    // --- New fields for the full case-study page ---
+    year: "2026",
+    problem:
+      "I wanted to build an application that went beyond standard CRUD operations to tackle real-world architecture challenges—like secure authentication, real-time dual-interface chat, and cloud media storage—while maintaining a seamless, blazing-fast single-page user experience.",
+    approach: [
+      "Built a decoupled architecture using React for a dynamic single-page frontend and ASP.NET Core Web API for a strictly typed backend.",
+      "Designed a responsive, component-driven frontend using Tailwind CSS, React Router for nested role-based layouts (Admin vs. Customer), and the Context API for global authentication state.",
+      "Integrated SignalR WebSockets for real-time communication to engineer a synchronized live chat system, utilizing Optimistic UI updates to instantly render messages before the server round-trip completes.",
+      "Implemented a secure JWT authentication flow with refresh token rotation and BCrypt password hashing, strictly managing CORS policies across Vercel and Render deployments.",
+      "Configured Cloudflare R2 for secure, scalable profile picture storage, actively handling broken links or forbidden access with automated fallback UI avatars."
+    ],
+    challenges:
+      "Connecting the React frontend to the .NET SignalR hub introduced notorious 'phantom bugs.' React's Strict Mode caused duplicate event listeners, resulting in echoed messages. I also faced a serialization mismatch where the live SignalR broadcasts defaulted to PascalCase, causing the React frontend (expecting camelCase) to drop live messages. On the UI side, managing React's component lifecycles caused visual glitches, such as a split-second flash of authenticated UI during token validation and incorrect scroll preservation between routes. Finally, aggressive browser autofill extensions caused 'ghost submits' on auth forms, requiring custom frontend validation shields.",
+    outcome:
+      "A fully deployed, production-ready e-commerce platform that smoothly handles real-time WebSocket communication, secure file uploads, and robust authentication. The frontend feels native and highly polished, leveraging custom scroll-to-top routing utilities, strict initialization states, and graceful error handling to deliver a seamless user experience.",
+    gallery: ["/Shop_co_1.png", "/Shop_co_2.png", "/Shop_co_3.png","/Shop_co_4.png"], 
   },
   "lecture-agent": {
     title: "Podium AI",
@@ -104,20 +139,36 @@ export const projectData: Record<ProjectId, Project> = {
     github: "https://github.com/Zaid7700S/Lecture-Assistant-Slides-Generator-",
     demo: "https://lecture-assistant-orpin.vercel.app/",
   },
-  "quiz-app": {
-    title: "Interactive Quiz App",
-    subtitle: "Mobile Application",
-    img: "/Quiz_app.png",
-    desc: "A cross-platform mobile application built in Flutter. Features timed questions, score tracking, and dynamic question loading. Designed with a clean, intuitive UI for an engaging user experience.",
-    tags: ["Flutter", "Dart", "Mobile", "UI/UX"],
+ "quiz-app": {
+    title: "QuizMaster",
+    subtitle: "AI-Powered Cross-Platform Study Ecosystem",
+    img: "/Quiz_app.png", // Keep your existing image or update to the new dashboard shot
+    desc: "A comprehensive study management system built with Flutter and Firebase. It features AI-powered data parsing to transform unstructured notes into structured quizzes, an integrated AI tutor for explanations, advanced question slicing, and professional PDF exports.",
+    tags: ["Flutter", "Dart", "Firebase", "Firestore", "AI", "Cross-Platform"],
     features: [
-      "Cross-platform (Android & iOS) single codebase.",
-      "Dynamic question loading from API/local storage.",
-      "Timer functionality and real-time score tracking.",
-      "Clean, intuitive Material Design UI.",
+      "AI-powered parsing to automatically generate structured MCQs from messy, unstructured lecture notes.",
+      "Built-in AI 'Explain' feature providing real-time concept breakdowns inside the quiz.",
+      "Advanced question slicing by topic, difficulty, and performance history.",
+      "Generates and exports beautifully formatted PDF study guides and mistake reports.",
+      "Cross-platform syncing between mobile and web via Firestore.",
     ],
     github: "https://github.com/Zaid7700S/Quiz-App",
     demo: "https://quiz-app-6e33e.web.app/",
+    year: "2025",
+    problem:
+      "I’ve always struggled to find a tool that actually fit my study style for MCQ-based exams. I wanted something that didn't just passively store questions but actively helped me learn—highlighting my 'weak' areas, explaining concepts in real-time, and syncing perfectly whether I was commuting on my phone or sitting at my desk. After coming up empty-handed while prepping for my own computer science finals, I decided that if the right tool didn't exist, I would just build it myself.",
+    approach: [
+      "Built a unified cross-platform codebase in Flutter, deploying it natively to mobile devices while also compiling a fully responsive web application.",
+      "Integrated Firestore for real-time state synchronization, allowing users to start a session on their phone and instantly pick up where they left off on their laptop.",
+      "Implemented an AI parsing pipeline that ingests messy, unstructured text or PDFs and strictly formats the output into structured JSON that the app can instantly render as playable MCQs.",
+      "Designed a dynamic analytics engine that tracks user performance history and automatically routes incorrectly answered items into a dedicated 'Weak Questions' bank for targeted mastery.",
+      "Utilized background processing isolates in Dart to handle complex file parsing and heavy PDF generation tasks without blocking the main UI thread, ensuring smooth animations and responsiveness."
+    ],
+    challenges:
+      "The transition from a mobile-first design to a seamless web experience introduced significant challenges around state synchronization, browser caching, and responsive routing. Furthermore, handling messy data through the AI parser required careful prompt engineering; the model frequently tried to return conversational text instead of the strict JSON format the app required to function. Finally, ensuring the UI remained perfectly smooth while parsing heavy documents or compiling professional PDF reports meant I had to restructure how the app managed its state, offloading that heavy computation to background isolates.",
+    outcome:
+      "A complete, intelligent study ecosystem that goes far beyond traditional flashcards. It actively identifies knowledge gaps, explains complex topics on the fly, and generates professional offline materials. Building it served as a deep dive into cross-platform state management, responsive UI design, and practical AI integration—and it ultimately became my primary study tool for finals.",
+    gallery: ["/quiz_app_1.png", "/quiz_app_2.png", "/quiz_app_3.png","/quiz_app_4.png"], // TODO: add screenshot paths
   },
   "boardroom-ai": {
   title: "Boardroom AI",
