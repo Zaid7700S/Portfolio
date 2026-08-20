@@ -10,22 +10,23 @@ interface ProjectsProps {
 // Only display-only metadata lives here (badge label/color, year shown on the
 // card). All actual project content — title, desc, tags, img, links — comes
 // from data/projects.ts so there's a single source of truth.
-const gridMeta: Record<
-  Exclude<ProjectId, "business-plan">,
-  { tag: string; tagColor: string; year: string }
+const gridMeta: Partial<
+  Record<Exclude<ProjectId, "business-plan">, { tag: string; tagColor: string; year: string }>
 > = {
   "rag-analyzer": { tag: "AI / RAG", tagColor: "text-[var(--accent)]", year: "2026" },
   "ecom-store": { tag: "FULL-STACK", tagColor: "text-[var(--accent-2)]", year: "2026" },
   "lecture-agent": { tag: "AI / LLM AGENT", tagColor: "text-[var(--accent)]", year: "2026" },
   "quiz-app": { tag: "MOBILE", tagColor: "text-[var(--accent)]", year: "2025" },
-  "boardroom-ai": { tag: "AI / MULTI-AGENT", tagColor: "text-[var(--accent)]", year: "2026" },
 };
 
-const gridIds = Object.keys(gridMeta) as (keyof typeof gridMeta)[];
+const gridEntries = Object.entries(gridMeta) as [
+  Exclude<ProjectId, "business-plan">,
+  { tag: string; tagColor: string; year: string }
+][];
 
-const gridProjects = gridIds.map((id) => ({
+const gridProjects = gridEntries.map(([id, meta]) => ({
   id,
-  ...gridMeta[id],
+  ...meta,
   ...projectData[id],
 }));
 
