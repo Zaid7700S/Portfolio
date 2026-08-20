@@ -3,6 +3,7 @@ export type ProjectId =
   | "rag-analyzer"
   | "ecom-store"
   | "lecture-agent"
+  | "boardroom-ai"
   | "quiz-app";
 
 export interface Project {
@@ -109,4 +110,34 @@ export const projectData: Record<ProjectId, Project> = {
     github: "https://github.com/Zaid7700S/Quiz-App",
     demo: "https://quiz-app-6e33e.web.app/",
   },
+  "boardroom-ai": {
+  title: "Boardroom AI",
+  subtitle: "Multi-Agent Executive Debate System",
+  img: "/Boardroom_AI.png", // TODO: swap in your actual screenshot filename
+  desc: "An autonomous strategic planning app where four AI executives — CEO, CFO, CTO, and CMO — debate a business problem in real time, then converge on a structured action plan with a generated timeline chart. Built with AutoGen for the multi-agent debate and LangGraph for plan synthesis, running on Groq for low-latency inference.",
+  tags: ["React", "FastAPI", "AutoGen", "LangGraph", "Groq", "Supabase"],
+  features: [
+    "Four-agent executive debate (CEO/CFO/CTO/CMO) streamed live via Server-Sent Events.",
+    "LangGraph pipeline that compresses the debate into a 4-step action plan and a timeline chart.",
+    "Bring-your-own-key Groq auth, with keys encrypted at rest via Supabase Vault for signed-in users.",
+    "Guest mode with zero persistence, alongside full session history for authenticated users.",
+  ],
+  github: "https://github.com/Zaid7700S/Boardroom-AI-Backend/", // TODO: paste your repo URL
+  demo: "https://boardroom-ai-frontend.vercel.app/",
+  year: "2026",
+  problem:
+    "Strategic decisions usually get one perspective at a time. I wanted to see whether a debate among specialized AI agents — each with a distinct incentive, like a CFO who's skeptical of spend or a CTO who flags technical risk — would surface a more useful plan than a single model answering cold.",
+  approach: [
+    "Used AutoGen's RoundRobinGroupChat to run four agents with distinct system prompts through a bounded debate, streaming each turn to the frontend as it's generated rather than waiting for the full exchange.",
+    "Fed the completed debate into a LangGraph pipeline: one node extracts a 4-step action plan, a second turns it into structured timeline data.",
+    "Deliberately kept the LLM out of the code-execution path for chart generation — it returns JSON (step + duration), and a fixed function renders the chart, rather than the model generating and running its own Python.",
+    "Moved API key storage from browser-only state to Supabase Vault via SECURITY DEFINER RPCs, so signed-in users' Groq keys are encrypted at rest instead of sitting in plaintext user metadata.",
+    "Added a client-side wake-up ping against a health endpoint to smooth over cold starts on the free-tier backend host, so users see 'server is starting' instead of a silent stall.",
+  ],
+  challenges:
+    "The two hardest problems weren't the agents — they were the plumbing. First, an early version had the chart-generation LLM write and execute its own Python, which is a real remote-code-execution surface once you think about what a crafted prompt could get the model to emit; redesigning it to only ever return structured data (never code) closed that off entirely. Second, once the chart images started being sent inline as base64 over Server-Sent Events, a naive client-side parser that only handled one network chunk at a time silently dropped the final event whenever that payload landed on a chunk boundary — the app would just hang with no error. Rebuilding the parser to buffer across reads, rather than assume each chunk lines up with an SSE event, fixed it for good.",
+  outcome:
+    "A working end-to-end app: real-time multi-agent debate, an auto-generated action plan and chart, and persistent history for logged-in users, with the API key never leaving encrypted storage. The debugging process itself — chasing a schema mismatch, a CORS misconfiguration, and a chunk-boundary parsing bug — ended up being as instructive as the AI-agent design, and shaped how carefully I now think about failure modes in streaming architectures.",
+  gallery: ["/Boardroom_Ai_2.png","/Boardroom_Ai_3.png"], // TODO: add screenshot paths once you have them
+},
 };
