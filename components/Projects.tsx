@@ -10,17 +10,22 @@ interface ProjectsProps {
 // Only display-only metadata lives here (badge label/color, year shown on the
 // card). All actual project content — title, desc, tags, img, links — comes
 // from data/projects.ts so there's a single source of truth.
+//
+// "lecture-agent" (Podium AI) is the featured project below, so it's
+// excluded from this grid. Everything else you want on the homepage grid
+// needs an entry here — anything left out (or added to projectData later)
+// simply won't show, no build error either way.
 const gridMeta: Partial<
-  Record<Exclude<ProjectId, "business-plan">, { tag: string; tagColor: string; year: string }>
+  Record<Exclude<ProjectId, "lecture-agent">, { tag: string; tagColor: string; year: string }>
 > = {
+  "business-plan": { tag: "AI / MULTI-AGENT", tagColor: "text-[var(--accent)]", year: "2026" },
   "rag-analyzer": { tag: "AI / RAG", tagColor: "text-[var(--accent)]", year: "2026" },
   "ecom-store": { tag: "FULL-STACK", tagColor: "text-[var(--accent-2)]", year: "2026" },
-  "lecture-agent": { tag: "AI / LLM AGENT", tagColor: "text-[var(--accent)]", year: "2026" },
   "quiz-app": { tag: "MOBILE", tagColor: "text-[var(--accent)]", year: "2025" },
 };
 
 const gridEntries = Object.entries(gridMeta) as [
-  Exclude<ProjectId, "business-plan">,
+  Exclude<ProjectId, "lecture-agent">,
   { tag: string; tagColor: string; year: string }
 ][];
 
@@ -62,7 +67,7 @@ export default function Projects({ onOpenProject }: ProjectsProps) {
         <div className="reveal mb-8">
           <div
             className="project-trigger group block cursor-pointer"
-            onClick={(e) => handleTriggerClick(e, "business-plan")}
+            onClick={(e) => handleTriggerClick(e, "lecture-agent")}
           >
             <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center border border-[var(--border)] rounded-3xl p-5 md:p-8 hover:border-[var(--accent)] hover:bg-[var(--bg-2)] transition-all duration-500">
               <div className="lg:col-span-7 space-y-4 order-2 lg:order-1">
@@ -75,15 +80,15 @@ export default function Projects({ onOpenProject }: ProjectsProps) {
                   </span>
                 </div>
                 <h3 className="text-4xl md:text-6xl font-bold group-hover:text-[var(--accent)] transition-colors leading-none">
-                  Business Plan
+                  Podium
                   <br />
-                  <span className="font-serif italic">Generator</span>
+                  <span className="font-serif italic">AI</span>
                 </h3>
                 <p className="text-[var(--muted)] text-base md:text-lg leading-relaxed max-w-xl">
-                  {projectData["business-plan"].desc}
+                  {projectData["lecture-agent"].desc}
                 </p>
                 <div className="flex flex-wrap gap-2 pt-1">
-                  {projectData["business-plan"].tags.map((tag) => (
+                  {projectData["lecture-agent"].tags.map((tag) => (
                     <span key={tag} className="chip">
                       {tag}
                     </span>
@@ -96,7 +101,7 @@ export default function Projects({ onOpenProject }: ProjectsProps) {
                   </span>
                   <div className="flex gap-3">
                     <a
-                      href={projectData["business-plan"].github}
+                      href={projectData["lecture-agent"].github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-center px-4 py-2 rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)] text-xs transition-colors flex items-center gap-2 font-mono"
@@ -104,7 +109,7 @@ export default function Projects({ onOpenProject }: ProjectsProps) {
                       <i className="fab fa-github" /> Code
                     </a>
                     <a
-                      href={projectData["business-plan"].demo}
+                      href={projectData["lecture-agent"].demo}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-center px-4 py-2 rounded-full border border-[var(--border)] hover:border-[var(--accent-2)] hover:text-[var(--accent-2)] text-xs transition-colors flex items-center gap-2 font-mono"
@@ -116,8 +121,8 @@ export default function Projects({ onOpenProject }: ProjectsProps) {
               </div>
               <div className="lg:col-span-5 order-1 lg:order-2 relative aspect-[4/3] rounded-2xl overflow-hidden bg-[var(--bg-2)]">
                 <Image
-                  src={projectData["business-plan"].img}
-                  alt={projectData["business-plan"].title}
+                  src={projectData["lecture-agent"].img}
+                  alt={projectData["lecture-agent"].title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-contain group-hover:scale-105 transition-transform duration-700"
@@ -125,11 +130,11 @@ export default function Projects({ onOpenProject }: ProjectsProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)]/50 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
                   <div className="font-mono text-[10px] text-[var(--fg)]/80 tracking-widest">
-                    SYSTEM STATUS
+                    AGENT STATUS
                   </div>
                   <div className="flex items-center gap-1.5 font-mono text-[10px] text-[var(--accent)]">
                     <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                    4 AGENTS ACTIVE
+                    HITL REVIEW ACTIVE
                   </div>
                 </div>
               </div>

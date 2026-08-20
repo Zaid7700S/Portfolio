@@ -29,7 +29,7 @@ export interface Project {
 }
 
 export const projectData: Record<ProjectId, Project> = {
-  "business-plan": {
+    "business-plan": {
     title: "Business Plan Generator",
     subtitle: "Multi-Agent System",
     img: "/Venture_AI.png",
@@ -43,12 +43,21 @@ export const projectData: Record<ProjectId, Project> = {
     ],
     github: "https://github.com/Zaid7700S/Venture-AI-Backend",
     demo: "https://venture-ai-frontend.vercel.app/",
-    // year: "2026",
-    // problem: "",
-    // approach: [],
-    // challenges: "",
-    // outcome: "",
-    // gallery: [],
+    year: "2026",
+    problem:
+      "Generic 'AI business plan' tools tend to produce plausible-sounding numbers that aren't tied to anywhere real — a rent estimate that's really just a language model's prior, not what a space actually costs in that neighborhood. I wanted a planner that grounds its financials in live local data and is honest when its own budget assumptions turn out to be wrong.",
+    approach: [
+      "Built a LangGraph state machine with a sequential spine (parse location → build a 3-tier blueprint → pick a tier against budget) that fans out into five research agents running concurrently — market pricing, competitors, rent, permits, payroll — then fans back in before compiling the plan.",
+      "Gave each research agent a grounded web-search tool via Groq's native browser_search on gpt-oss-20b for live, cited lookups, with an automatic fallback to DuckDuckGo (and a cooldown once a rate limit is hit) so one flaky search doesn't take down the whole run.",
+      "Added a budget-gate node that re-checks the researched total (equipment + legal fees) against the user's actual budget after real numbers come in, rather than trusting the LLM's pre-research capex guess — if it's still over budget, the graph downgrades a tier and loops back through research automatically.",
+      "Pulled real nearby competitors from OpenStreetMap's Overpass API, trying multiple public mirrors in sequence since the main instance drops connections under load.",
+      "Replaced a fixed-timer progress bar with a real one: a streaming endpoint emits a Server-Sent Event the moment each LangGraph node actually finishes, so the UI reflects genuine agent progress — including a visible 'downgrading tier' state when the budget-gate loop fires — instead of a countdown that had no relationship to what the backend was doing.",
+    ],
+    challenges:
+      "The financial logic was the trickiest part to get right: an early version locked in feasibility using the blueprint agent's rough capex guess, made before any research had run, which meant a plan could be labeled 'feasible' off a number nobody had actually verified. Recomputing feasibility twice — once as a fast pre-research gate, once for real after the researched equipment and legal costs were in — and looping back to a cheaper tier when the real numbers didn't fit was what made the budget math trustworthy. Streaming was its own problem: with a single blocking endpoint, the frontend had no way to know which agent was actually running, so the progress UI was pure guesswork. Switching to LangGraph's `astream(stream_mode='updates')` over Server-Sent Events fixed that, but it meant designing the UI around genuine parallelism — five research agents finish in whatever order their searches happen to resolve, not neatly one after another, so the progress display had to represent that as a group rather than a fake sequence.",
+    outcome:
+      "A planner that researches instead of guesses: real competitor names from OSM, live rent and material pricing pulled via search, and a feasibility verdict that's checked against actual researched costs rather than an LLM's opening estimate. The progress UI now shows exactly what the agent graph is doing in real time, and a health-check ping smooths over cold starts on the free-tier host so a slow first load reads as 'waking up' instead of a silent hang.",
+    gallery: ["/Venture_AI_1.png","/Venture_AI_2.png","/Venture_AI_3.png","/Venture_AI_4.png"],
   },
   "rag-analyzer": {
     title: "RAG Document Analyzer",
@@ -81,7 +90,7 @@ export const projectData: Record<ProjectId, Project> = {
     demo: "https://store-frontend-xi-taupe.vercel.app",
   },
   "lecture-agent": {
-    title: "Lecture Assistant Agent",
+    title: "Podium AI",
     subtitle: "AI / LangGraph Workflow",
     img: "/lecture_assistant.png",
     desc: "A LangGraph-powered agentic workflow that researches a topic, extracts cited claims, and generates dynamic PowerPoint slide decks. Features a two-stage Human-in-the-Loop (HITL) review system allowing users to refine plans and verify facts before generating a fully formatted, downloadable presentation using Groq's high-speed LLMs.",
